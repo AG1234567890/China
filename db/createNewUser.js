@@ -11,11 +11,13 @@ const createNewUser = async (sender) =>{
       HP:100,
       STR: 0,
       DEF: 0,
+      SPD: 0,
     items: 0,
-    MainWeapon:"",
-    Armor: "",
+    MainWeapon:-1,
+    Armor:-1,
     Pet: -1,
-    Lock:"Padlock"
+    Lock:"Padlock",
+
 
   });
   await user.save();

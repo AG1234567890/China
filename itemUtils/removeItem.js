@@ -7,7 +7,7 @@ const removeItem = async (target, item) =>{
 
 
 
-const deletedItem = await Item.findOneAndDelete({id:item, owner: target})
+const deletedItem = await Item.findOneAndDelete({ID:item, owner: target})
 // console.log(deletedItem)
 // if(typeof(deletedItem.name) !== "undefined"){
 //     return deletedItem.name

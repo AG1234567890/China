@@ -14,10 +14,11 @@ const userSchema = new mongoose.Schema({
     STR: Number,
     DEF: Number,
     HP: Number,
+    SPD: Number,
     MainWeapon: Number,
     Pet: Number,
     Lock: String,
-    Armor: String
+    Armor: Number
 });
 
 
