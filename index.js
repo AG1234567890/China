@@ -28,7 +28,8 @@ const userAttack = require("./battleUtils/userAttack");
 const enemyAttack = require("./battleUtils/enemyAttack");
 const Battles = require("./models/battle");
 const battleRewards = require("./battleUtils/battleRewards");
-const Item = require("./models/item")
+const Item = require("./models/item");
+const epicTicket = require("./use/epicTicket");
 
 const consumables = ["Daily Ticket","Rare Ticket","Padlock","Epic Ticket","Legendary Ticket"]
 // require("./db/mongoose");
@@ -100,10 +101,14 @@ lets = 1
       } else {
         userArmor = {name:"",ATK:0,STR:0}
       }
-
+      let enemyFrozen = false
        if(userSPD > enemySPD) {
         const stuff = userAttack(userWeapon, userArmor, userSTR, userDEF, userSPD, e)
           let msg = stuff[1]
+          let effects = stuff[2]
+          if( effects.includes("Freeze")){
+            enemyFrozen = true
+          }
           let remainingEnemyHP = stuff[0]
         message.channel.send(" "+msg)
      enemyHP = remainingEnemyHP
@@ -113,13 +118,17 @@ lets = 1
       }
 
       while (userHP > 0 && enemyHP > 0){
-       
-        let stuff = enemyAttack(userHP,userWeapon,userArmor,userSTR, userDEF, userSPD, e)
+       if(!enemyFrozen) {
+         let stuff = enemyAttack(userHP,userWeapon,userArmor,userSTR, userDEF, userSPD, e)
         let msg = stuff[1]
         let yourRemainingHP = stuff[0]
         message.channel.send(" "+msg)
         userHP = yourRemainingHP
         message.channel.send(`You have ${yourRemainingHP} HP left`)
+       } else {
+         message.channel.send(`${e.name}'s attack was interuppted`)
+       }
+        
       
 
 
@@ -131,12 +140,23 @@ lets = 1
      enemyHP = remainingEnemyHP
     e.HP = remainingEnemyHP
         message.channel.send(`${e.name} has ${remainingEnemyHP} HP left`)
+        let effects = stuff[2]
+        if( effects.includes("Freeze")){
+          enemyFrozen = true
+        }
         }
    
 
 
-
-
+        if(enemyFrozen){
+          let rando =Math.floor( Math.random() * 2) 
+          if(rando == 0){
+                   enemyFrozen = false
+        message.channel.send(`${e.name} unfroze`)
+          }
+       
+        }
+    
 
 
       }
@@ -151,6 +171,11 @@ lets = 1
            await Battles.findOneAndUpdate({owner: sender}, {
           $inc: {"Enemies Of the State":1}
         })
+        if(e.name === "Crazed Protestor"){
+          await addItem( "Epic Ticket","Ticket","Epic",sender,0,0,user.items)
+    message.reply("Congrats, you got an epic ticket for beating the Crazed Protestor!")
+        }
+
 
 
 
@@ -259,6 +284,9 @@ if(consumables.includes(itemName)){
             } else if(deletedItem.name.toUpperCase() === "RARE TICKET"){
               const rt = await rareTicket(sender)
               message.reply(" "+rt)
+            } else if(deletedItem.name.toUpperCase() === "EPIC TICKET"){
+              const et = await epicTicket(sender)
+              message.reply(" "+et)
             }
 
 
@@ -298,7 +326,7 @@ if(consumables.includes(itemName)){
         let SPD = user.SPD
         message.reply( `You have ${STR} Strength, ${DEF} Defense, ${HP} HP and ${SPD} Speed`)
       } else if(message.content === prefix+"help"){
-        message.reply("some commands are c!daily,c!use,c!rob,c!stats,c!help,c!shop,c!buy,c!banner")
+        message.reply("some commands are c!daily,c!use,c!rob,c!stats,c!help,c!shop,c!buy,")
       }else if(message.content.startsWith(prefix+"rob")){
         if(Robbed.has(sender)){
           message.reply("You have robbed too recently!")
@@ -334,7 +362,7 @@ if(consumables.includes(itemName)){
         } else {
           message.reply("You need to choose someone to rob bozo")
         }
-      }} else if(message.content === prefix+"banner"){
+      }} else if(message.content === prefix+"23456789"){
         message.reply("The current banner is: Super Idol Sword [R], Bingchiling [E], Sword of the Tiger [E], Bane of Capitalism [L] ")
       } else if(message.content.startsWith (prefix+"battle")) {
         const stories = ["ENEMIES OF THE STATE"]

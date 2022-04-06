@@ -23,6 +23,16 @@ if(enemyHP < 1){
     reply += " and it died ggez not even close"
 }
 let otherStuffThatHappened = []
+if(userWeapon.name.includes("Ice")){
+    const rando = Math.floor(Math.random() * 3)
+    if(rando === 1){
+           otherStuffThatHappened.push("Freeze")
+    reply += ` and ${enemyName} was frozen`
+    }
+
+ 
+}
+
 
 return [enemyHP, reply,otherStuffThatHappened]
 

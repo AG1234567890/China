@@ -9,14 +9,16 @@ const stages = [
 ,{title:"Waiting for the Summer",name:"Violent Anarchist",HP: 135, DMG: 200, SPD:55, Perks: {},description:"Anarchy the law can't stop me",traits:["Yellow"]}
 ,{title:"Knowing there's no where to go",name:"Very Violent Anarchist",HP: 155, DMG: 250, SPD:60, Perks: {},description:"Anarchy the law can't stop me",traits:["Yellow"]}
 ,{title:"I'm in a tropic love",name:"Technobald",HP: 400, DMG: 100, SPD:60, Perks: {},description:"Technobald",traits:["Pig"]}
-,{title:"Dragoon",name:"Fire Dragon",HP: 1500, DMG: 200, SPD:200, Perks: {burn:50},description:"dragon",traits:["Dragon"]}
-,{title:"More Dragoon",name:"Ice Dragon",HP: 2000, DMG: 150, SPD:100, Perks: {freeze:50},description:"more dragoon",traits:["Pig"]}
+,{title:"Dragoon",name:"Fire Dragon",HP: 1500, DMG: 250, SPD:200, Perks: {burn:50},description:"dragon",traits:["Dragon"]}
+,{title:"More Dragoon",name:"Ice Dragon",HP: 2000, DMG: 200, SPD:100, Perks: {freeze:50},description:"more dragoon",traits:["Pig"]}
+,{title:"Earth Dragoon",name:"Earth Dragon",HP: 10000, DMG: 75, SPD:30, Perks: {},description:"more dragoon",traits:["Dragon"]}
+,{title:"The Crazed Protestor",name:"Crazed Protestor",HP: 25000, DMG: 250, SPD:50, Perks: {},description:"crazed protestor",traits:[]}
 
 ]
-    console.log(stage,stages.length)
+  //  console.log(stage,stages.length)
 if(stage >= stages.length){
 
-    return {title:"Death",name:"Death: Destroyer of Worlds",HP: 9999999999, DMG: 999999999999, SPD:999999, Perks: {},description:"Death",traits:["Death"]}
+    return {title:"Death",name:"Death: Destroyer of Worlds",HP: 9999999999, DMG: 999999999, SPD:999999, Perks: {},description:"Death",traits:["Death"]}
 } else {
     return stages[stage]
 }

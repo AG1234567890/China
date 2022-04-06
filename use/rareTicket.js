@@ -5,7 +5,8 @@ const addItem = require("../itemUtils/addItem")
 const mongoose = require("mongoose");
 const addMoney = require("../moneyUtils/addMoney")
 const rareTicket = async (target) =>{
-    const rando = Math.floor(Math.random() * 6)
+    let rando = Math.floor(Math.random() * 6)
+   // rando = 5
     if(rando === 0) {
         //Free Money
         addMoney(target,100000)
