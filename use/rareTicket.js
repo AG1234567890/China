@@ -5,7 +5,7 @@ const addItem = require("../itemUtils/addItem")
 const mongoose = require("mongoose");
 const addMoney = require("../moneyUtils/addMoney")
 const rareTicket = async (target) =>{
-    const rando = Math.floor(Math.random() * 5)
+    const rando = Math.floor(Math.random() * 6)
     if(rando === 0) {
         //Free Money
         addMoney(target,100000)
@@ -29,6 +29,10 @@ const rareTicket = async (target) =>{
         const user = await getUser(target)
         await addItem( "Super Idol Sword","Weapon","Rare",target,100,40,user.items)
         return "You recieved SUPER IDOL SWORD [R]"
+    }else if(rando===5) {
+        const user = await getUser(target)
+        await addItem( "Ice Dragon Sword","Weapon","Rare",target,75,55,user.items)
+        return "You recieved ICE DRAGON AXE [R]"
     }
 }
 

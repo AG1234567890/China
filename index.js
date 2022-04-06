@@ -40,6 +40,7 @@ const client = new Client({
 let Daily = new Set();
 let Robbed = new Set()
 let BattlePrompt = new Set()
+let freeRareTicket = new Set()
 // When the client is ready, run this code (only once)
 client.once("ready", async () => {
   console.log("mogus");
@@ -406,10 +407,10 @@ if(consumables.includes(itemName)){
           if(bal < itemPrice) {
              message.reply("You don't have enough money for this. do not try to scam the gloruis ccp!!!")
           } else {
-            message.reply(`You successfully bought a ${targetItem} for ${itemPrice} coins. You recieved one OK Rock for Free` )
+            message.reply(`You successfully bought a ${targetItem} for ${itemPrice} coins. ` )
             await removeMoney(sender,itemPrice)
             let user = await getUser(sender)
-            await addItem("OK Rock","Rock","Uncommon",sender,0,0,user.items)
+           // await addItem("OK Rock","Rock","Uncommon",sender,0,0,user.items)
             targetItem = targetItem.trim().toUpperCase()
             
              user = await getUser(sender)
@@ -440,8 +441,14 @@ if(consumables.includes(itemName)){
 
 
 
-      } else if(message.content === prefix+"amongus"){
-
+      } else if(message.content === prefix+"claim ticket"){
+        if(!freeRareTicket.has(sender)){
+          await addItem( "Rare Ticket","Ticket","Rare",sender,0,0,user.items)
+          message.reply("Congrats, you got a rare ticket for free!")
+          freeRareTicket.add(sender)
+        } else {
+          message.reply("bonzo radio")
+        }
       }
       
       else {
