@@ -312,7 +312,7 @@ if(consumables.includes(itemName)){
            //console.log(target.id)
             const promise = await User.findOne({id: target.id})//.exec();
            console.log(promise.coins)
-           targetBal = promise.coins
+           let = promise.coins
             const stealAmount = Math.floor(0.1*targetBal)
             if(stealAmount > 100000){
               stealAmount=100000
