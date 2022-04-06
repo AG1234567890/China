@@ -28,6 +28,7 @@ const userAttack = require("./battleUtils/userAttack");
 const enemyAttack = require("./battleUtils/enemyAttack");
 const Battles = require("./models/battle");
 const battleRewards = require("./battleUtils/battleRewards");
+const Item = require("./models/item")
 
 const consumables = ["Daily Ticket","Rare Ticket","Padlock","Epic Ticket","Legendary Ticket"]
 // require("./db/mongoose");
@@ -449,6 +450,56 @@ if(consumables.includes(itemName)){
         } else {
           message.reply("bonzo radio")
         }
+      } else if (message.content.startsWith(prefix+"powerup")){
+        const arguements = message.content.split(" ") //c!use daily ticket 3
+        let targetItem = ""
+         for (i=1;i<arguements.length;i++){
+           targetItem+=arguements[i]
+           targetItem+=" "
+         }
+
+         const item = await getItem(sender,targetItem)
+        if(item != null){
+          let itemName = item.name
+          let rarity = item.rarity
+          let price = 0
+          let boost = 0
+          if(item.type === "Weapon"){
+            if(rarity.toUpperCase() === "COMMON"){
+              price = 10000
+              boost = 1
+            } else if (rarity.toUpperCase() === "RARE"){
+              price = 25000
+              boost = 1
+            } else if (rarity.toUpperCase() === "EPIC"){
+              price = 20000
+              boost = 1
+            } else if (rarity.toUpperCase() === "LEGENDARY"){
+              price = 50000
+              boost = 1
+            } 
+            const user = await getUser(sender)
+            const bal = user.coins
+            if(bal < price){
+              message.reply("youre too broke lmfao")
+            } else {
+              await Item.findOneAndUpdate({owner:sender, ID: targetItem},{
+            $inc: {ATK:boost, STR:boost}
+          })
+          message.reply(`You paid ${price} coins for a bonus of 1 strength and Atk to your ${itemName}`)
+           removeMoney(sender, price)
+        }
+
+
+          } else {
+            message.reply("You can not power this up")
+          }
+          
+        } else {
+          message.reply("Invalid item")
+        }
+          
+
       }
       
       else {
