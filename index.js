@@ -311,7 +311,7 @@ if(consumables.includes(itemName)){
          } 
          else if (item.type.toUpperCase() == "LOCK") {
           if (item.name.toUpperCase() == "PADLOCK"){
-            await User.findOneAndUpdate({id: sender},{lock: "Padlock"})
+            await User.findOneAndUpdate({id: sender},{Lock: "Padlock"})
           }
            message.reply("You set your armor as  "+item.name)
          } 
@@ -345,7 +345,7 @@ if(consumables.includes(itemName)){
       },1000*60*10)
           let target = message.mentions.members.first()
           let user = await getUser(target.id)
-          let lock = user.lock
+          let lock = user.Lock
           const rando = Math.floor(Math.random() * 100)
           if(lock !="Nothing"){
           
