@@ -308,7 +308,13 @@ if(consumables.includes(itemName)){
             Armor: item.ID
            })
            message.reply("You set your armor as  "+item.name)
-         }
+         } 
+         else if (item.type.toUpperCase() == "LOCK") {
+          if (item.name.toUpperCase() == "PADLOCK"){
+            await User.findOneAndUpdate({id: sender},{lock: "Padlock"})
+          }
+           message.reply("You set your armor as  "+item.name)
+         } 
        }
 
        }
@@ -327,23 +333,30 @@ if(consumables.includes(itemName)){
         message.reply( `You have ${STR} Strength, ${DEF} Defense, ${HP} HP and ${SPD} Speed`)
       } else if(message.content === prefix+"help"){
         message.reply("some commands are c!daily,c!use,c!rob,c!stats,c!help,c!shop,c!buy,")
-      }else if(message.content.startsWith(prefix+"rob")){
+        }else if(message.content.startsWith(prefix+"rob")){
+
         if(Robbed.has(sender)){
           message.reply("You have robbed too recently!")
         } else 
      {   if(message.mentions.members.first()) {
+      Robbed.add(sender)
+      setTimeout(()=>{
+        Robbed.delete(sender)
+      },1000*60*10)
           let target = message.mentions.members.first()
+          let user = await getUser(target.id)
+          let lock = user.lock
           const rando = Math.floor(Math.random() * 100)
-          if(rando < 80){
-            let playerOne = client.users.cache.get(target)
+          if(lock !="Nothing"){
+          
            let targetBal = 10000
            //console.log(target.id)
             const promise = await User.findOne({id: target.id})//.exec();
            console.log(promise.coins)
             targetBal = promise.coins
             let stealAmount = Math.floor(0.1*targetBal)
-            if(stealAmount > 100000){
-              stealAmount=100000
+            if(stealAmount > 1000000){
+              stealAmount=1000000
             }
             await addMoney(sender,stealAmount)
             await removeMoney(target.id,stealAmount)
@@ -352,13 +365,18 @@ if(consumables.includes(itemName)){
 
 
           } else {
-            message.reply("You got caught by the Police bonzo lmao. Try again in 10 minutes")
-
+            message.reply(`there was a ${lock} and you got caught L bonzo. Now you have to pay money`)
+            await User.findOneAndUpdate({id: sender},{
+              lock:"Nothing"
+            })
+            const u = await getUser(sender)
+            const uBal = u.coins
+            const payment = Math.floor(u.coins/20)
+            await removeMoney(sender,payment)
+            await addMoney(target.id,payment)
+            message.reply(`<@${target}> your lock broke`)
           }
-          Robbed.add(sender)
-          setTimeout(()=>{
-            Robbed.delete(sender)
-          },1000*60*10)
+        
         } else {
           message.reply("You need to choose someone to rob bozo")
         }
