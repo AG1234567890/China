@@ -287,9 +287,12 @@ if(consumables.includes(itemName)){
             } else if(deletedItem.name.toUpperCase() === "EPIC TICKET"){
               const et = await epicTicket(sender)
               message.reply(" "+et)
+            } else if(deletedItem.name.toUpperCase() === "PADLOCK"){
+              await User.findOneAndUpdate({id: sender},{Lock: "Padlock"})  
+               message.reply("You set your lock as  "+item.name)
             }
 
-
+         
 
 
 
@@ -309,12 +312,7 @@ if(consumables.includes(itemName)){
            })
            message.reply("You set your armor as  "+item.name)
          } 
-         else if (item.type.toUpperCase() == "LOCK") {
-          if (item.name.toUpperCase() == "PADLOCK"){
-            await User.findOneAndUpdate({id: sender},{Lock: "Padlock"})
-          }
-           message.reply("You set your armor as  "+item.name)
-         } 
+    
        }
 
        }
@@ -346,8 +344,9 @@ if(consumables.includes(itemName)){
           let target = message.mentions.members.first()
           let user = await getUser(target.id)
           let lock = user.Lock
+          console.log(lock)
           const rando = Math.floor(Math.random() * 100)
-          if(lock !="Nothing"){
+          if(lock !="Padlock"){
           
            let targetBal = 10000
            //console.log(target.id)
@@ -366,15 +365,16 @@ if(consumables.includes(itemName)){
 
           } else {
             message.reply(`there was a ${lock} and you got caught L bonzo. Now you have to pay money`)
-            await User.findOneAndUpdate({id: sender},{
-              lock:"Nothing"
+            await User.findOneAndUpdate({id: target.id},{
+              Lock:"Nothing"
             })
             const u = await getUser(sender)
             const uBal = u.coins
             const payment = Math.floor(u.coins/20)
             await removeMoney(sender,payment)
             await addMoney(target.id,payment)
-            message.reply(`<@${target}> your lock broke`)
+            
+            message.reply(`${target} your lock broke`)
           }
         
         } else {
@@ -547,6 +547,10 @@ if(consumables.includes(itemName)){
         }
           
 
+      } else if(message.content === prefix+"lock"){
+        const user = await getUser(sender)
+        const lock = user.Lock
+        message.reply("Your current lock is a "+lock)
       }
       
       else {
