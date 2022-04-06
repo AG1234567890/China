@@ -340,8 +340,8 @@ if(consumables.includes(itemName)){
            //console.log(target.id)
             const promise = await User.findOne({id: target.id})//.exec();
            console.log(promise.coins)
-           let = promise.coins
-            const stealAmount = Math.floor(0.1*targetBal)
+            targetBal = promise.coins
+            let stealAmount = Math.floor(0.1*targetBal)
             if(stealAmount > 100000){
               stealAmount=100000
             }
@@ -473,7 +473,8 @@ if(consumables.includes(itemName)){
       } else if(message.content === prefix+"claim ticket"){
         if(!freeRareTicket.has(sender)){
           await addItem( "Rare Ticket","Ticket","Rare",sender,0,0,user.items)
-          message.reply("Congrats, you got a rare ticket for free!")
+          await addItem( "epic Ticket","Ticket","Epic",sender,0,0,user.items)
+          message.reply("Congrats, you got a rare and epic ticket for free! This can be claimed everytime the bot restarts")
           freeRareTicket.add(sender)
         } else {
           message.reply("bonzo radio")
