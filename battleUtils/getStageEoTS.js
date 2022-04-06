@@ -9,6 +9,8 @@ const stages = [
 ,{title:"Waiting for the Summer",name:"Violent Anarchist",HP: 135, DMG: 200, SPD:55, Perks: {},description:"Anarchy the law can't stop me",traits:["Yellow"]}
 ,{title:"Knowing there's no where to go",name:"Very Violent Anarchist",HP: 155, DMG: 250, SPD:60, Perks: {},description:"Anarchy the law can't stop me",traits:["Yellow"]}
 ,{title:"I'm in a tropic love",name:"Technobald",HP: 400, DMG: 100, SPD:60, Perks: {},description:"Technobald",traits:["Pig"]}
+,{title:"Dragoon",name:"Fire Dragon",HP: 1500, DMG: 200, SPD:200, Perks: {burn:50},description:"dragon",traits:["Dragon"]}
+,{title:"More Dragoon",name:"Ice Dragon",HP: 2000, DMG: 150, SPD:100, Perks: {freeze:50},description:"more dragoon",traits:["Pig"]}
 
 ]
     console.log(stage,stages.length)
