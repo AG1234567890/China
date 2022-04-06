@@ -306,7 +306,7 @@ if(consumables.includes(itemName)){
      {   if(message.mentions.members.first()) {
           let target = message.mentions.members.first()
           const rando = Math.floor(Math.random() * 100)
-          if(rando < 40){
+          if(rando < 80){
             let playerOne = client.users.cache.get(target)
            let targetBal = 10000
            //console.log(target.id)
