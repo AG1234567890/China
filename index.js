@@ -472,9 +472,9 @@ if(consumables.includes(itemName)){
 
       } else if(message.content === prefix+"claim ticket"){
         if(!freeRareTicket.has(sender)){
-          await addItem( "Rare Ticket","Ticket","Rare",sender,0,0,user.items)
+       //   await addItem( "Rare Ticket","Ticket","Rare",sender,0,0,user.items)
           await addItem( "epic Ticket","Ticket","Epic",sender,0,0,user.items)
-          message.reply("Congrats, you got a rare and epic ticket for free! This can be claimed everytime the bot restarts")
+          message.reply("Congrats, you got an epic ticket for free! This can be claimed everytime the bot restarts")
           freeRareTicket.add(sender)
         } else {
           message.reply("bonzo radio")
