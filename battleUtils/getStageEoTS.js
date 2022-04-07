@@ -13,6 +13,7 @@ const stages = [
 ,{title:"More Dragoon",name:"Ice Dragon",HP: 2000, DMG: 200, SPD:100, Perks: {freeze:50},description:"more dragoon",traits:["Pig"]}
 ,{title:"Earth Dragoon",name:"Earth Dragon",HP: 10000, DMG: 75, SPD:30, Perks: {},description:"more dragoon",traits:["Dragon"]}
 ,{title:"The Crazed Protestor",name:"Crazed Protestor",HP: 25000, DMG: 250, SPD:50, Perks: {},description:"crazed protestor",traits:[]}
+,{title:"Merciless Onslaught",name:"Assassin Bear",HP: 2000, DMG: 2500, SPD:800, Perks: {},description:"Scary Bear",traits:[]}
 
 ]
   //  console.log(stage,stages.length)

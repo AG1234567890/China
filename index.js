@@ -30,6 +30,10 @@ const Battles = require("./models/battle");
 const battleRewards = require("./battleUtils/battleRewards");
 const Item = require("./models/item");
 const epicTicket = require("./use/epicTicket");
+const addPet = require("./itemUtils/addPet");
+const getPets = require("./itemUtils/getPets");
+const getPet = require("./itemUtils/getPet");
+const Pet = require("./models/pet");
 
 const consumables = ["Daily Ticket","Rare Ticket","Padlock","Epic Ticket","Legendary Ticket"]
 // require("./db/mongoose");
@@ -89,6 +93,11 @@ lets = 1
       let userSPD = user.SPD
       let userArmor = user.Armor 
       let userWeapon = user.MainWeapon
+      let pet = await getPet(sender,user.Pet)
+      if(pet ==null){
+        pet = {ATK: 0, STR: 0, DEF: 0, SPD: 0, Name:""}
+      }
+      userSPD += pet.SPD
       if(userWeapon != -1){
         let weapon = await getItem(sender, userWeapon)
         userWeapon = {name:weapon.name, ATK: weapon.ATK, STR: weapon.STR}
@@ -103,7 +112,7 @@ lets = 1
       }
       let enemyFrozen = false
        if(userSPD > enemySPD) {
-        const stuff = userAttack(userWeapon, userArmor, userSTR, userDEF, userSPD, e)
+        const stuff = userAttack(userWeapon, userArmor, userSTR, userDEF, userSPD, e,pet)
           let msg = stuff[1]
           let effects = stuff[2]
           if( effects.includes("Freeze")){
@@ -119,7 +128,7 @@ lets = 1
 
       while (userHP > 0 && enemyHP > 0){
        if(!enemyFrozen) {
-         let stuff = enemyAttack(userHP,userWeapon,userArmor,userSTR, userDEF, userSPD, e)
+         let stuff = enemyAttack(userHP,userWeapon,userArmor,userSTR, userDEF, userSPD, e,pet)
         let msg = stuff[1]
         let yourRemainingHP = stuff[0]
         message.channel.send(" "+msg)
@@ -133,7 +142,7 @@ lets = 1
 
 
         if(userHP > 0){
-                stuff = userAttack(userWeapon, userArmor, userSTR, userDEF, userSPD, e)
+                stuff = userAttack(userWeapon, userArmor, userSTR, userDEF, userSPD, e,pet)
          msg = stuff[1]
         let remainingEnemyHP = stuff[0]
       message.channel.send(" "+msg)
@@ -174,6 +183,9 @@ lets = 1
         if(e.name === "Crazed Protestor"){
           await addItem( "Epic Ticket","Ticket","Epic",sender,0,0,user.items)
     message.reply("Congrats, you got an epic ticket for beating the Crazed Protestor!")
+        } else if (e.name === "Assassin Bear"){
+          await addPet("Black Bear","Legendary",sender, 5, 80,0, 50)
+          message.reply("You recieved a [L] Black Bear")
         }
 
 
@@ -551,6 +563,32 @@ if(consumables.includes(itemName)){
         const user = await getUser(sender)
         const lock = user.Lock
         message.reply("Your current lock is a "+lock)
+      } else if (message.content === prefix+"pets"){
+        const Pets = await getPets(sender)
+        message.reply("Your pets are "+Pets)
+      } else if (message.content.startsWith(prefix+"setpet")){
+        const arguements = message.content.split(" ") //c!use daily ticket 3
+        let targetItem = ""
+         for (i=1;i<arguements.length;i++){
+           targetItem+=arguements[i]
+           targetItem+=" "
+         }
+
+         const pet = await getPet(sender,targetItem)
+         if(pet!=null){
+           await User.findOneAndUpdate({id:sender}, {
+             Pet: targetItem})
+           message.reply(`You set your pet to a ${pet.Name}`)
+         } else {
+           message.reply("Invalid Pet Id")
+         }
+      } else if(message.content === prefix+"pet"){
+        
+        const user = await getUser(sender)
+        const pet = await getPet(sender,user.Pet)
+        if(pet!=null)
+        { message.reply(`Your currently equipped pet is a ${pet.Name}. bonuses are ${pet.ATK} ATK, ${pet.STR} STR, ${pet.DEF} DEF, ${pet.SPD} SPD`)}
+       else {message.reply("You dont have a pet equipped rn")}
       }
       
       else {

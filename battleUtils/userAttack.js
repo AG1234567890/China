@@ -1,5 +1,9 @@
-const userAttack = (userWeapon,userArmor, STR, DEF, SPD, enemy) => {
-let totalSTR = userWeapon.STR + STR + userArmor.STR
+const userAttack = (userWeapon,userArmor, STR, DEF, SPD, enemy,pet) => {
+  //  console.log(pet)
+  console.log(enemy)
+  petSTR = pet.STR
+  petATK = pet.ATK
+let totalSTR = userWeapon.STR + STR + userArmor.STR + petSTR
 let totalDEF = DEF
 let armors = ["Steel Armor"]
 let def = [30]
@@ -8,6 +12,7 @@ if (armors.includes(userArmor.name)){
 }
 
 let weaponATK = userWeapon.ATK
+weaponATK += petATK
 
 let enemyHP = enemy.HP 
 let enemyName = enemy.name
@@ -15,6 +20,7 @@ let traits = enemy.traits
 
 let randomFactor = Math.random() * 0.4 + 0.8 //0.8 - 1.2
 let DMG = Math.floor((weaponATK+ 5) * (totalSTR + 10) * randomFactor  / 1.5)
+console.log(petSTR,petATK)
 enemyHP -= DMG 
 
 let reply = `You did _${DMG}_ damage to the **${enemyName}**`

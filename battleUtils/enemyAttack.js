@@ -1,8 +1,8 @@
-const enemyAttack = (HP, userWeapon, userArmor, userSTR, userDEF, userSPD, enemy) => {
+const enemyAttack = (HP, userWeapon, userArmor, userSTR, userDEF, userSPD, enemy,pet) => {
 let enemyDMG = enemy.DMG
 let armors = ["Steel Armor"]
 let def = [30]
-totalDEF = userDEF
+totalDEF = userDEF + pet.DEF
 if (armors.includes(userArmor.name)){
     totalDEF += def[armors.indexOf(userArmor.name)]
 }
