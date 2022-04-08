@@ -14,6 +14,9 @@ const stages = [
 ,{title:"Earth Dragoon",name:"Earth Dragon",HP: 10000, DMG: 75, SPD:30, Perks: {},description:"more dragoon",traits:["Dragon"]}
 ,{title:"The Crazed Protestor",name:"Crazed Protestor",HP: 25000, DMG: 250, SPD:50, Perks: {},description:"crazed protestor",traits:[]}
 ,{title:"Merciless Onslaught",name:"Assassin Bear",HP: 2000, DMG: 2500, SPD:800, Perks: {},description:"Scary Bear",traits:[]}
+,{title:"Wind Blows North",name:"Cyclone",HP: 40000, DMG: 400, SPD:0, Perks: {},description:"A giant storm",traits:[]}
+,{title:"Fire Dragon Awakens",name:"Fire Hydra",HP: 75000, DMG: 600, SPD:50, Perks: {},description:"A dragon of fire",traits:[]}
+,{title:"Unholy Tempest",name:"Demon Cyclone",HP: 100000, DMG: 500, SPD:0, Perks: {},description:"A giant storm of unholyness",traits:[]}
 
 ]
   //  console.log(stage,stages.length)

@@ -186,6 +186,9 @@ lets = 1
         } else if (e.name === "Assassin Bear"){
           await addPet("Black Bear","Legendary",sender, 5, 80,0, 50)
           message.reply("You recieved a [L] Black Bear")
+        }else if (e.name === "Fire Hydra"){
+          await addPet("Inferno Drache","Epic",sender, 40, 10,10, 10)
+          message.reply("You recieved a [E] Inferno Drache")
         }
 
 
@@ -281,7 +284,9 @@ lets = 1
        if(!typeof(parseInt(targetItem)) == "number"){
         targetItem = 0
        }
-        const item = await getItem(sender,targetItem)
+        const item = await getItem(sender,targetItem).catch((e) => {
+          message.reply("Something went wrong")
+        })
         console.log(item+" "+targetItem)
         if(item != null){
           let itemName = item.name
