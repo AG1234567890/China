@@ -436,7 +436,7 @@ if(consumables.includes(itemName)){
       
       } else if(message.content === prefix+"shop"){
         
-        message.reply("The current items for sale are: Padlock[2500], Steel Sword[10000], Steel Armor[10000], Damage Talisman[25000], Defense Talisman[25000]")
+        message.reply("The current items for sale are: Padlock[2500], Steel Sword[10000], Steel Armor[10000], Damage Talisman[25000], Defense Talisman[25000], Focus Sash [50000]")
       } else if(message.content === prefix+"weapon") {
         const user = await getUser(sender)
         const weaponID = user.MainWeapon
