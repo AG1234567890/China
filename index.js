@@ -274,13 +274,13 @@ lets = 1
     
 
       } else if (message.content.startsWith(prefix+"use")){
-       const arguements = message.content.split(" ") //c!use daily ticket 3
+       const arguements = message.content.split(" ") //c!use daily ticket 
        let targetItem = ""
-        for (i=1;i<arguements.length;i++){
-          targetItem+=arguements[i]
-          targetItem+=" "
-        }
+       targetItem = arguements[1]
        // console.log(arguements)
+       if(!typeof(parseInt(targetItem)) == "number"){
+        targetItem = 0
+       }
         const item = await getItem(sender,targetItem)
         console.log(item+" "+targetItem)
         if(item != null){

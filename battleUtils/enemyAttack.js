@@ -8,7 +8,7 @@ if (armors.includes(userArmor.name)){
 }
 
 let randomFactor = Math.random() * 0.4 + 0.8 //0.8 - 1.2
-enemyDMG -= Math.floor(userDEF*0.5)
+enemyDMG -= Math.floor(userDEF^2 - userDEF)
 
 let DMG = Math.floor(enemyDMG * randomFactor  / 1.5)
 if(DMG < DMG*0.4 ){
