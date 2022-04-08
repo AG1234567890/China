@@ -128,7 +128,7 @@ lets = 1
 
       while (userHP > 0 && enemyHP > 0){
        if(!enemyFrozen) {
-         let stuff = enemyAttack(userHP,userWeapon,userArmor,userSTR, userDEF, userSPD, e,pet)
+         let stuff = await enemyAttack(userHP,userWeapon,userArmor,userSTR, userDEF, userSPD, e,pet,sender)
         let msg = stuff[1]
         let yourRemainingHP = stuff[0]
         message.channel.send(" "+msg)
@@ -446,8 +446,8 @@ if(consumables.includes(itemName)){
 
         message.reply(`Your current weapon is ${weapon.rarity} ${weaponName} [${weaponID}]. ${weapon.ATK} ATK Power, ${weapon.STR} Bonus Strength`)
       }else if(message.content.startsWith(prefix+"buy")) {
-        const shop = ["PADLOCK","STEEL SWORD","STEEL ARMOR", "DAMAGE TALISMAN","DEFENSE TALISMAN","RARE TICKET","DAILY TICKET"]
-        const prices = [2500,10000,10000,25000,25000,100000,10000]
+        const shop = ["PADLOCK","STEEL SWORD","STEEL ARMOR", "DAMAGE TALISMAN","DEFENSE TALISMAN","RARE TICKET","DAILY TICKET","FOCUS SASH"]
+        const prices = [2500,10000,10000,25000,25000,100000,10000,50000]
 
         const arguements = message.content.split(" ") //c!use daily ticket 3
         let targetItem = ""
@@ -482,14 +482,20 @@ if(consumables.includes(itemName)){
             } else if (targetItem === "DAMAGE TALISMAN") {
               await User.findOneAndUpdate({id: sender},{
                 $inc: {STR: 1, SPD: 1}
-            })
+            }) 
             message.reply("You recieved a permanent strength boost of 1 and SPD boost of 1 (it adds up i swear)")
             } else if (targetItem === "DEFENSE TALISMAN") {
               await await User.findOneAndUpdate({id: sender},{
                 $inc: {HP: 1,DEF:1}
             })
             message.reply("You recieved a permanent HP boost of 1 and DEF boost of 1 (it adds up i swear)")
-            }
+            }  else if (targetItem === "FOCUS SASH") {
+              await addItem("Focus Sash","Item","Epic",sender,0,0, user.items)
+            message.reply("You recieved a Focus Sash")
+            } 
+
+
+            
           }
 
 
